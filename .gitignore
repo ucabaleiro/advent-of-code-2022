@@ -1,0 +1,9 @@
+*.d
+*.o
+*.exe
+*.pdb
+dep-bin-aoc01ab
+output-bin-aoc01ab
+bin-aoc01ab
+*.timestamp
+*.TAG
