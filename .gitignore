@@ -7,3 +7,5 @@ output-bin-aoc01ab
 bin-aoc01ab
 *.timestamp
 *.TAG
+*/target/*
+*/target/*/*
