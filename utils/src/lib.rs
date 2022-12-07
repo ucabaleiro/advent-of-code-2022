@@ -6,7 +6,7 @@ pub mod input {
     use std::io::{self, BufRead};
 
     pub fn get_input() -> Vec<String> {
-        let input_file = File::open("../resources/input.txt").or_else(|_| File::open("./resources/input.txt"));
+        let input_file = File::open("../resources/input.txt");
         let lines = input_file
         .map(|input| io::BufReader::new(input).lines());
     
