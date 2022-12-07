@@ -1,24 +1,14 @@
-use std::fs::File;
-use std::io::{self, BufRead};
-
+use utils::input::get_input;
 
 fn main() {
-    let input_file = File::open("../resources/input.txt").or_else(|_| File::open("./resources/input.txt"));
-    let lines = input_file
-    .map(|input| io::BufReader::new(input).lines());
-
-    let lines = match lines {
-        Ok(lines_buffer) => lines_buffer.into_iter().map(|line| line.expect("error parsing input line")),
-        Err(error) => panic!("input error: {}", error.to_string())
-    };
+    let lines = get_input();
 
     let subtotals = vec![0];
-    let mut subtotals = lines.fold(subtotals, |results, line| update_results(results, line));
+    let mut subtotals = lines.into_iter().fold(subtotals, |results, line| update_results(results, line));
     subtotals.sort();
 
     println!("max: {}", subtotals.iter().max().expect("error getting maximum"));
     println!("sum of 3 highest: {}", subtotals.iter().rev().take(3).sum::<i32>());
-
 }
 
 

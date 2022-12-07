@@ -1,5 +1,4 @@
-use std::fs::File;
-use std::io::{self, BufRead};
+use utils::input::get_input;
 
 #[derive(Clone, Copy)]
 enum Choice {
@@ -98,15 +97,8 @@ impl Round {
 
 
 fn main() {
-    let input_file = File::open("../resources/input.txt").or_else(|_| File::open("./resources/input.txt"));
-    let lines = input_file
-    .map(|input| io::BufReader::new(input).lines());
-
-    let lines: Vec<String> = match lines {
-        Ok(lines_buffer) => lines_buffer.into_iter().map(|line| line.expect("error parsing input line")).collect(),
-        Err(error) => panic!("input error: {}", error.to_string())
-    };
-
+    let lines = get_input();
+    
     let result_part_1: i32 = lines.iter().map(Round::from_round_as_string).map(|round| round.score()).sum();
     let result_part_2: i32 = lines.iter().map(Round::from_desired_result_as_string).map(|round| round.score()).sum();
 
