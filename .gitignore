@@ -1,11 +1,5 @@
-*.d
-*.o
-*.exe
-*.pdb
-dep-bin-aoc01ab
-output-bin-aoc01ab
-bin-aoc01ab
-*.timestamp
-*.TAG
-*/target/*
-*/target/*/*
+# Generated files
+*/target/
+
+# Lib crate cargo.lock
+utils/cargo.lock
