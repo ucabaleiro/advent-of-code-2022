@@ -3,7 +3,7 @@ use std::io::{self, BufRead};
 
 
 fn main() {
-    let input_file = File::open("../resources/input.txt");
+    let input_file = File::open("../resources/input.txt").or_else(|_| File::open("./resources/input.txt"));
     let lines = input_file
     .map(|input| io::BufReader::new(input).lines());
 
@@ -12,7 +12,7 @@ fn main() {
         Err(error) => panic!("input error: {}", error.to_string())
     };
 
-    let mut subtotals = vec![0];
+    let subtotals = vec![0];
     let mut subtotals = lines.fold(subtotals, |results, line| update_results(results, line));
     subtotals.sort();
 
