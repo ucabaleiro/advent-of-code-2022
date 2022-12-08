@@ -1,5 +1,6 @@
 # Generated files
 */target/
+*/*/tempCodeRunnerFile.rs
 
 # Lib crate cargo.lock
 utils/cargo.lock
