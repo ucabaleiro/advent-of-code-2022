@@ -15,11 +15,38 @@ pub mod input {
             Err(error) => panic!("input error: {}", error.to_string())
         }
     }
-
-
-
 } 
 
+
+pub mod matrix {
+    pub fn transpose<S>(matrix: Vec<Vec<S>>) -> Vec<Vec<S>> {
+
+        let mut transposed: Vec<Vec<S>> = Vec::new();
+    
+        matrix.first().unwrap().iter().for_each(|_| transposed.push(Vec::new()));
+    
+        for row in matrix {
+            for (j, element) in row.into_iter().enumerate() {
+                transposed[j].push(element);
+            }
+        }
+    
+        transposed
+    }
+    
+    pub fn rotate_clockwise<S>(matrix: Vec<Vec<S>>) -> Vec<Vec<S>> {
+    
+        let mut transposed = transpose(matrix);
+    
+        let mut inverse_transposed = Vec::new();
+    
+        for row in transposed {
+             inverse_transposed.push(row.into_iter().rev().collect::<Vec<S>>()); 
+        }
+    
+        inverse_transposed
+    }
+}
 
 
 
