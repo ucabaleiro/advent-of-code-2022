@@ -36,7 +36,7 @@ pub mod matrix {
     
     pub fn rotate_clockwise<S>(matrix: Vec<Vec<S>>) -> Vec<Vec<S>> {
     
-        let mut transposed = transpose(matrix);
+        let transposed = transpose(matrix);
     
         let mut inverse_transposed = Vec::new();
     
