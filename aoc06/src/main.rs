@@ -1,4 +1,5 @@
 use std::{fs, collections::VecDeque};
+use utils::extras;
 
 struct LimitedSizeCharVecDeque {
     size_limit: usize,
@@ -15,12 +16,8 @@ impl LimitedSizeCharVecDeque {
         self.content.push_back(c);
     }
 
-    pub fn contains_duplicates(&self) -> bool { //todo: optimize, slow af
-        self.content.iter().any(|c| self.occurances(c) > 1)
-    }
-
-    fn occurances(&self, c: &char) -> usize {
-        self.content.iter().filter(|c2| *c2 == c).count()
+    pub fn contains_duplicates(&self) -> bool { 
+        extras::contains_duplicates(self.content.iter())
     }
 
     pub fn complete(&self) -> bool {
@@ -33,13 +30,13 @@ impl LimitedSizeCharVecDeque {
 fn main() {
     let input = fs::read_to_string("./resources/input.txt").expect("error opening input file");
 
-    println!("First start of packet:    {:?}", find_first_sequence_of_N_without_duplicates(input.clone(), 4));
-    println!("First start of message:   {:?}", find_first_sequence_of_N_without_duplicates(input, 14));
+    println!("[AOC06] Part 1 - First start of packet:    {:?}", index_of_first_sequence_without_n_duplicates(input.clone(), 4));
+    println!("[AOC06] Part 2 - First start of message:   {:?}", index_of_first_sequence_without_n_duplicates(input, 14));
 }
 
 
-fn find_first_sequence_of_N_without_duplicates(input: String, N: usize) -> Option<usize> {
-    let mut current_4_chars = LimitedSizeCharVecDeque::new(N);
+fn index_of_first_sequence_without_n_duplicates(input: String, n: usize) -> Option<usize> {
+    let mut current_4_chars = LimitedSizeCharVecDeque::new(n);
     
     input.chars().into_iter().enumerate()
         .fold(Option::<usize>::None, |mut accum, (index, c)| {
