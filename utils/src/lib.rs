@@ -17,9 +17,8 @@ pub mod input {
     }
 } 
 
-
 pub mod matrix {
-    pub fn transpose<S>(matrix: Vec<Vec<S>>) -> Vec<Vec<S>> {
+    pub fn transpose<S: Clone>(matrix: &Vec<Vec<S>>) -> Vec<Vec<S>> {
 
         let mut transposed: Vec<Vec<S>> = Vec::new();
     
@@ -27,27 +26,41 @@ pub mod matrix {
     
         for row in matrix {
             for (j, element) in row.into_iter().enumerate() {
-                transposed[j].push(element);
+                transposed[j].push(element.clone());
             }
         }
     
         transposed
     }
     
-    pub fn rotate_clockwise<S>(matrix: Vec<Vec<S>>) -> Vec<Vec<S>> {
-    
-        let transposed = transpose(matrix);
-    
-        let mut inverse_transposed = Vec::new();
-    
-        for row in transposed {
-             inverse_transposed.push(row.into_iter().rev().collect::<Vec<S>>()); 
+    pub fn rotate_clockwise<S: Clone>(matrix: &Vec<Vec<S>>) -> Vec<Vec<S>> {
+
+        let (rows, cols) = (matrix.len(), matrix.first().expect("provided empty matrix").len());
+
+        let mut rotated: Vec<Vec<S>> = Vec::new(); 
+
+        matrix.last().expect("provided empty matrix")
+            .iter().for_each(|_| rotated.push(Vec::new()));
+
+        for i in 0..cols {
+            for j in 0..rows {
+                rotated[i].push(matrix[rows - 1 - j][i].clone());
+            }
         }
-    
-        inverse_transposed
+
+        rotated
     }
 }
 
+pub mod extras {
+    use std::{collections::HashSet, hash::Hash};
 
+    pub fn contains_duplicates<T: Eq + Hash>(vector: impl Iterator<Item = T> + Clone) -> bool {
+        let initial = vector.clone();
+        let len_without_duplicates = HashSet::<_>::from_iter(vector).len();
+
+        initial.count() != len_without_duplicates
+    }
+}
 
 
