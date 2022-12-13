@@ -48,11 +48,10 @@ fn main() {
     let stacks: Vec<Vec<char>>= stack_lines.into_iter()
         .map(|stack_line| stack_line.chars().collect()).collect();
 
-    let mut stacks: Vec<Vec<char>> = rotate_clockwise(stacks).into_iter()
+    let mut stacks: Vec<Vec<char>> = rotate_clockwise(&stacks).into_iter()
         .filter(|line| *line.first().unwrap() != ' ')
         .map(|mut stack| stack.drain(1..).filter(|c| !c.is_whitespace()).collect())
         .collect();
-    println!("{:?}", stacks);
 
     let mut stacks_part_2 = stacks.clone();
 
