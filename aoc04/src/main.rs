@@ -18,10 +18,10 @@ fn line_to_ranges(line: &String) -> ((i32, i32), (i32, i32)) {
     let (first, second) = line.split_once(',').expect("malformed input");
 
     let (lower, upper) = first.split_once('-').expect("malformed input");
-    let first_bounds = (lower.parse::<i32>().unwrap(), upper.parse::<i32>().unwrap());
+    let first_bounds: (i32, i32) = (lower.parse().unwrap(), upper.parse().unwrap());
 
     let (lower, upper) = second.split_once('-').expect("malformed input");
-    let second_bounds = (lower.parse::<i32>().unwrap(), upper.parse::<i32>().unwrap());
+    let second_bounds: (i32, i32) = (lower.parse().unwrap(), upper.parse().unwrap());
     
     (first_bounds, second_bounds)
 }
